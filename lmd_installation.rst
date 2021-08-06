@@ -15,13 +15,43 @@ Environment setup
 -----------------
 The model will need several things for it to properly run.
 
-* **subversion**. I ran :code:`sudo apt install subversion` to install it on
-  Ubuntu.
+* **subversion**.
 * **gfortran** *or* **ifort**. The model is written in FORTRAN and the
   modelers have setup scripts for these compilers. Others may work too... but
   if you choose to use one you're kinda on your own. I've read ifort is faster
-  but I've found gfortran is much easier to install as it's simply
-  :code:`apt install gfortran` on Ubuntu. 
+  but I've found gfortran is much easier to install.
+* **netCDF**. This one requires the same compiler suite that will be used to
+  compile the model (gfortran corresponds to gcc, ifort to icc, etc.).
+* **fcm**. This is some utility created by LMD.
+
+Ubuntu
+******
+First let's update apt with :code:`sudo apt update`. Then we can install
+things as described below.
+
+* Install subversion with :code:`apt install subversion`
+* Install gfortran with :code:`apt install gfortran`
+* Install netCDF with :code:`apt install netcdf-bin`.
+* netCDF visualization software. I think this is optional for anyone working
+  in Python, as scipy has a library that can do this, so you can avoid this
+  hassle.
+* Install fcm by running :code:`
+  svn checkout http://forge.ipsl.jussieu.fr/fcm/svn/PATCHED/FCM_V1.2` from
+  within the trunk directory. Note that the link provided in the documentation
+  does not work for me (problem with the underscore). It should say *checked
+  out revision 12*.
+
+  We now need to make our shell know about fcm. Open .bashrc (assuming you're
+  using bash) and add the FCM's bin directory to the path. I make an lmd
+  directory in my home directory where I checkedout trunk, so the command for
+  me is :code:`export PATH="$HOME/lmd/trunk/FCM_V1.2/bin:$PATH"`.
+
+I'm a little worried that the netcdf won't have the same compiler flags as
+gfortran, and thus won't play well together. But here's to hoping!
+
+macOS
+*****
+Sumedha will update this when she finds the time.
 
 Model download
 --------------
@@ -71,3 +101,5 @@ Model download
 
    Also note that while they say this is required, I can't find it anywhere in
    the model that Margaux installed.
+
+0̃l
